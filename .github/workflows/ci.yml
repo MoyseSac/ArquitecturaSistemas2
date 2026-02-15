@@ -36,7 +36,7 @@ jobs:
       env:
         BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
 
-    - name: Invalidate CloudFront cache
-      run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
-      env:
-        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
+#    - name: Invalidate CloudFront cache
+#      run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+#      env:
+#       DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
