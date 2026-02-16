@@ -37,6 +37,7 @@ Con esta configuración, la aplicación web estática creada con Vite se desplie
 
 Mi cuenta de AWS aún no tiene habilitado el uso de CloudFront debido a un proceso de verificación pendiente con AWS Support. En mi cuenta lleve a cabo todas las configuraciones del perfil.
 La aplicación ya está disponible mediante el Website endpoint de S3, pero al no tener CloudFront aún, puede sufrir mayor latencia en picos de tráfico y no cuenta con HTTPS.
+En el archivo YAML se encuentra la configuracion para el cache de Cloudfront.
 
 Este es un problema común reportado por otros usuarios. En [Stack Overflow](https://stackoverflow.com/) existen casos documentados donde la activación se resolvió más rápido para algunos que para otros.
 
