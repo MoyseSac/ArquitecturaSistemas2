@@ -21,11 +21,11 @@
   - **Invalidate:** Invalida la caché de CloudFront para reflejar inmediatamente los cambios.
 
 ## 5. Entregables
-<img width="1519" height="403" alt="image" src="https://github.com/user-attachments/assets/c3f5ed13-4f93-432b-acb2-3a9a7cd3db90" />
-<img width="1519" height="403" alt="image" src="https://github.com/user-attachments/assets/e70b9308-39f7-4358-92b3-58ae26d888f7" />
-<img width="631" height="301" alt="image" src="https://github.com/user-attachments/assets/cdadab3d-24f3-4fb6-a5dd-8d6db0a480cb" />
-<img width="871" height="1003" alt="image" src="https://github.com/user-attachments/assets/064bde2e-2038-4094-b483-0dc1b9b00cb6" />
 
+<img width="871" height="1003" alt="image" src="https://github.com/user-attachments/assets/341b2d12-02c7-4b11-a8c0-cb448ce6f999" />
+<img width="871" height="1003" alt="image" src="https://github.com/user-attachments/assets/fee57044-ce65-4cb5-8876-5de469b8cbaf" />
+<img width="871" height="1003" alt="image" src="https://github.com/user-attachments/assets/0aa1c1d2-b3af-4fa6-8f94-38e81921b48d" />
+<img width="923" height="995" alt="image" src="https://github.com/user-attachments/assets/b8bb9491-4b4b-4ffe-aee0-6e8a3ceca3d2" />
 http://amzn-s3-bucket-implementation.s3-website.us-east-2.amazonaws.com/
 
 
