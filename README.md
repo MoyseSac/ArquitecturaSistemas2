@@ -25,22 +25,11 @@
 <img width="1540" height="377" alt="image" src="https://github.com/user-attachments/assets/3828d81f-5e0d-4c80-ab0b-ecdf1483d2f8" />
 <img width="618" height="370" alt="image" src="https://github.com/user-attachments/assets/8bf652e0-e347-461f-af1c-50d0a90778f0" />
 <img width="928" height="1009" alt="image" src="https://github.com/user-attachments/assets/f198ba63-ece4-4985-ab69-edbf55525826" />
-http://amzn-s3-bucket-implementation.s3-website.us-east-2.amazonaws.com/
+https://d3k9n9gk6hkbqs.cloudfront.net/
 
 
 ---
 
 ### Resultado
 Con esta configuración, la aplicación web estática creada con Vite se despliega automáticamente en AWS S3 cuando hacemos push a la rama assignment-02
-
-## ⚠️ Disclaimer sobre CloudFront
-
-Mi cuenta de AWS aún no tiene habilitado el uso de CloudFront debido a un proceso de verificación pendiente con AWS Support. En mi cuenta lleve a cabo todas las configuraciones del perfil.
-La aplicación ya está disponible mediante el Website endpoint de S3, pero al no tener CloudFront aún, puede sufrir mayor latencia en picos de tráfico y no cuenta con HTTPS.
-En el archivo YAML se encuentra comentada la configuracion para el cache por medio de Cloudfront.
-
-Este es un problema común reportado por otros usuarios. En [Stack Overflow](https://stackoverflow.com/) existen casos documentados donde la activación se resolvió más rápido para algunos que para otros.
-
-<img width="644" height="143" alt="image" src="https://github.com/user-attachments/assets/7c5ed869-80b8-4b11-b1a7-6e1e0af6287c" />
-
 
