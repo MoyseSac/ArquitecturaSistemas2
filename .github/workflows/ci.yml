@@ -33,7 +33,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Upload to S3
-      run: aws s3 sync dist/ s3://$BUCKET_NAME --delete --acl public-read
+      run: aws s3 sync dist/ s3://$BUCKET_NAME --delete 
       env:
         BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
 
