@@ -1,4 +1,4 @@
-# Assignment 02 – Static Website Hosting with AWS & Doppler
+# Assignment 02 – Pagina web estatica utilizando Doppler y Github Actions en AWS
 
 ## 1. Configuración de Doppler
 - Creé un **espacio de trabajo** específico para esta actividad.
