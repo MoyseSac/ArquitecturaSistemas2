@@ -31,5 +31,5 @@ https://d3k9n9gk6hkbqs.cloudfront.net/
 ---
 
 ### Resultado
-Con esta configuración, la aplicación web estática creada con Vite se despliega automáticamente en AWS S3 cuando hacemos push a la rama assignment-02
+Con esta configuración, la aplicación web estática creada con Vite se despliega automáticamente en **AWS S3** y se distribuye globalmente mediante **CloudFront** cuando hacemos push a la rama `assignment-02`.
 
