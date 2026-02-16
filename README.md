@@ -22,6 +22,8 @@
 
 ## 5. Entregables
 <img width="1515" height="271" alt="image" src="https://github.com/user-attachments/assets/22b722dc-7fec-4ebe-9cec-064d954deac3" />
+<img width="1540" height="377" alt="image" src="https://github.com/user-attachments/assets/3828d81f-5e0d-4c80-ab0b-ecdf1483d2f8" />
+
 
 
 http://amzn-s3-bucket-implementation.s3-website.us-east-2.amazonaws.com/
