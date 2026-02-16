@@ -24,7 +24,8 @@
 <img width="1519" height="403" alt="image" src="https://github.com/user-attachments/assets/c3f5ed13-4f93-432b-acb2-3a9a7cd3db90" />
 <img width="1519" height="403" alt="image" src="https://github.com/user-attachments/assets/e70b9308-39f7-4358-92b3-58ae26d888f7" />
 <img width="631" height="301" alt="image" src="https://github.com/user-attachments/assets/cdadab3d-24f3-4fb6-a5dd-8d6db0a480cb" />
-<img width="882" height="856" alt="image" src="https://github.com/user-attachments/assets/46aa3425-c954-4e9f-a81a-4bddff46c8e1" />
+<img width="871" height="1003" alt="image" src="https://github.com/user-attachments/assets/064bde2e-2038-4094-b483-0dc1b9b00cb6" />
+
 http://amzn-s3-bucket-implementation.s3-website.us-east-2.amazonaws.com/
 
 
