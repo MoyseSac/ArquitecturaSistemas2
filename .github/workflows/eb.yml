@@ -84,7 +84,6 @@ jobs:
             ]
           }
           EOF
-          cat Dockerrun.aws.json
 
       - name: Show and validate Dockerrun
         run: |
@@ -98,8 +97,6 @@ jobs:
           zip -r deploy.zip Dockerrun.aws.json
           echo "----- ZIP contents -----"
           unzip -l deploy.zip
-          echo "----- Dockerrun inside ZIP -----"
-          unzip -p deploy.zip Dockerrun.aws.json
 
       - name: Upload bundle to S3
         env:
@@ -108,14 +105,25 @@ jobs:
           aws s3 cp deploy.zip "s3://$EB_S3_BUCKET/$S3_KEY"
           echo "S3_KEY=$S3_KEY" >> $GITHUB_ENV
 
-      - name: Create EB application version
+      - name: Create EB application version (if not exists)
         env:
           VERSION_LABEL: ${{ github.sha }}
         run: |
-          aws elasticbeanstalk create-application-version \
+          set -e
+          EXISTS=$(aws elasticbeanstalk describe-application-versions \
             --application-name "$EB_APP_NAME" \
-            --version-label "$VERSION_LABEL" \
-            --source-bundle S3Bucket="$EB_S3_BUCKET",S3Key="$S3_KEY"
+            --version-labels "$VERSION_LABEL" \
+            --query "ApplicationVersions[0].VersionLabel" \
+            --output text 2>/dev/null || true)
+
+          if [ "$EXISTS" = "$VERSION_LABEL" ]; then
+            echo "EB application version already exists: $VERSION_LABEL (skipping create)"
+          else
+            aws elasticbeanstalk create-application-version \
+              --application-name "$EB_APP_NAME" \
+              --version-label "$VERSION_LABEL" \
+              --source-bundle S3Bucket="$EB_S3_BUCKET",S3Key="$S3_KEY"
+          fi
 
       - name: Deploy new version
         env:
