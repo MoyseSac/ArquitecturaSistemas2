@@ -68,7 +68,7 @@ jobs:
 
       - name: Create Dockerrun.aws.json (v1)
         run: |
-          cat > Dockerrun.aws.json <<'EOF'
+          cat > Dockerrun.aws.json <<EOF
           {
             "AWSEBDockerrunVersion": "1",
             "Image": {
