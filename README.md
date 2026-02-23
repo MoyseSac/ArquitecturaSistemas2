@@ -17,6 +17,8 @@ Se configuró **Husky** para aplicar reglas de estilo y asegurar una estructura 
 ### Configuración en `package.json`
 Se agregó la configuración de `lint-staged` para aplicar ESLint/Prettier únicamente en los archivos afectados:
 
+<img width="788" height="774" alt="image" src="https://github.com/user-attachments/assets/2220bcb3-21c9-4489-b3e6-926fa793744a" />
+
 
 [Aplicación desplegada en Elastic Beanstalk](http://web-env.eba-5nkppuft.us-east-2.elasticbeanstalk.com/)
 ### Configuracion Elastic Beanstalk
