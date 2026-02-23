@@ -9,35 +9,41 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  AWS_REGION: us-east-2
-  AWS_USR_ARN: ${{ secrets.AWS_USR_ARN }}
-
-  EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
-  EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
-  EB_S3_BUCKET: ${{ secrets.EB_S3_BUCKET }}
-
-  ECR_URI: ${{ secrets.ECR_URI }}
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: CI-CD
 
+    env:
+      AWS_REGION: us-east-2
+      EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
+      EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
+      EB_S3_BUCKET: ${{ secrets.EB_S3_BUCKET }}
+      ECR_URI: ${{ secrets.ECR_URI }}
+      ROLE_ARN: ${{ secrets.AWS_USR_ARN }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug env presence (no secret values)
+        run: |
+          test -n "$ROLE_ARN" && echo "ROLE_ARN OK" || (echo "ROLE_ARN MISSING" && exit 1)
+          test -n "$EB_APP_NAME" && echo "EB_APP_NAME OK" || (echo "EB_APP_NAME MISSING" && exit 1)
+          test -n "$EB_ENV_NAME" && echo "EB_ENV_NAME OK" || (echo "EB_ENV_NAME MISSING" && exit 1)
+          test -n "$EB_S3_BUCKET" && echo "EB_S3_BUCKET OK" || (echo "EB_S3_BUCKET MISSING" && exit 1)
+          test -n "$ECR_URI" && echo "ECR_URI OK" || (echo "ECR_URI MISSING" && exit 1)
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ env.AWS_USR_ARN }}
+          role-to-assume: ${{ env.ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag and push Docker image to ECR
+      - name: Build and push image
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
@@ -50,20 +56,14 @@ jobs:
           cat > Dockerrun.aws.json <<'EOF'
           {
             "AWSEBDockerrunVersion": 1,
-            "Image": {
-              "Name": "__IMAGE_URI__",
-              "Update": "true"
-            },
-            "Ports": [
-              { "ContainerPort": 80 }
-            ]
+            "Image": { "Name": "__IMAGE_URI__", "Update": "true" },
+            "Ports": [ { "ContainerPort": 80 } ]
           }
           EOF
           sed -i "s|__IMAGE_URI__|$IMAGE_URI|g" Dockerrun.aws.json
 
-      - name: Package application bundle
-        run: |
-          zip -r deploy.zip Dockerrun.aws.json
+      - name: Package bundle
+        run: zip -r deploy.zip Dockerrun.aws.json
 
       - name: Upload bundle to S3
         env:
@@ -72,7 +72,7 @@ jobs:
           aws s3 cp deploy.zip "s3://$EB_S3_BUCKET/$S3_KEY"
           echo "S3_KEY=$S3_KEY" >> $GITHUB_ENV
 
-      - name: Create new Elastic Beanstalk application version
+      - name: Create EB application version
         env:
           VERSION_LABEL: ${{ github.sha }}
         run: |
@@ -81,7 +81,7 @@ jobs:
             --version-label "$VERSION_LABEL" \
             --source-bundle S3Bucket="$EB_S3_BUCKET",S3Key="$S3_KEY"
 
-      - name: Deploy new version to Elastic Beanstalk environment
+      - name: Deploy new version
         env:
           VERSION_LABEL: ${{ github.sha }}
         run: |
