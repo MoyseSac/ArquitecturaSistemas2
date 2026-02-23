@@ -19,7 +19,7 @@ jobs:
       EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
       EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
       EB_S3_BUCKET: ${{ secrets.EB_S3_BUCKET }}
-      ECR_URI: ${{ secrets.ECR_URI }}
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
       ROLE_ARN: ${{ secrets.AWS_USR_ARN }}
 
     steps:
@@ -32,7 +32,7 @@ jobs:
           test -n "$EB_APP_NAME" && echo "EB_APP_NAME OK" || (echo "EB_APP_NAME MISSING" && exit 1)
           test -n "$EB_ENV_NAME" && echo "EB_ENV_NAME OK" || (echo "EB_ENV_NAME MISSING" && exit 1)
           test -n "$EB_S3_BUCKET" && echo "EB_S3_BUCKET OK" || (echo "EB_S3_BUCKET MISSING" && exit 1)
-          test -n "$ECR_URI" && echo "ECR_URI OK" || (echo "ECR_URI MISSING" && exit 1)
+          test -n "$ECR_REPOSITORY" && echo "ECR_REPOSITORY OK" || (echo "ECR_REPOSITORY MISSING" && exit 1)
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
@@ -41,15 +41,18 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
+        id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push image
         env:
           IMAGE_TAG: ${{ github.sha }}
+          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
         run: |
-          docker build -t "$ECR_URI:$IMAGE_TAG" .
-          docker push "$ECR_URI:$IMAGE_TAG"
-          echo "IMAGE_URI=$ECR_URI:$IMAGE_TAG" >> $GITHUB_ENV
+          IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker build -t "$IMAGE_URI" .
+          docker push "$IMAGE_URI"
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
       - name: Create Dockerrun.aws.json (v1)
         run: |
