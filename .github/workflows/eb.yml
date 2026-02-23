@@ -34,6 +34,13 @@ jobs:
           test -n "$EB_S3_BUCKET" && echo "EB_S3_BUCKET OK" || (echo "EB_S3_BUCKET MISSING" && exit 1)
           test -n "$ECR_REPOSITORY" && echo "ECR_REPOSITORY OK" || (echo "ECR_REPOSITORY MISSING" && exit 1)
 
+      - name: Debug GitHub identity context
+        run: |
+          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
+          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -43,6 +50,11 @@ jobs:
       - name: Login to Amazon ECR
         id: ecr
         uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Ensure ECR repository exists
+        run: |
+          aws ecr describe-repositories --repository-names "$ECR_REPOSITORY" >/dev/null 2>&1 || \
+          aws ecr create-repository --repository-name "$ECR_REPOSITORY" >/dev/null
 
       - name: Build and push image
         env:
@@ -59,14 +71,33 @@ jobs:
           cat > Dockerrun.aws.json <<'EOF'
           {
             "AWSEBDockerrunVersion": 1,
-            "Image": { "Name": "__IMAGE_URI__", "Update": "true" },
-            "Ports": [ { "ContainerPort": "80" } ]
+            "Image": {
+              "Name": "__IMAGE_URI__",
+              "Update": "true"
+            },
+            "Ports": [
+              {
+                "ContainerPort": "80"
+              }
+            ]
           }
           EOF
           sed -i "s|__IMAGE_URI__|$IMAGE_URI|g" Dockerrun.aws.json
 
+      - name: Show and validate Dockerrun
+        run: |
+          echo "----- Dockerrun.aws.json -----"
+          cat Dockerrun.aws.json
+          python -m json.tool Dockerrun.aws.json > /dev/null
+          echo "Dockerrun JSON OK"
+
       - name: Package bundle
-        run: zip -r deploy.zip Dockerrun.aws.json
+        run: |
+          zip -r deploy.zip Dockerrun.aws.json
+          echo "----- ZIP contents -----"
+          unzip -l deploy.zip
+          echo "----- Dockerrun inside ZIP -----"
+          unzip -p deploy.zip Dockerrun.aws.json
 
       - name: Upload bundle to S3
         env:
