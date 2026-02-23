@@ -67,22 +67,24 @@ jobs:
           echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
       - name: Create Dockerrun.aws.json (v1)
+        env:
+          REGISTRY: ${{ steps.ecr.outputs.registry }}
+          REPO: ${{ secrets.ECR_REPOSITORY }}
+          TAG: ${{ github.sha }}
         run: |
-          cat > Dockerrun.aws.json <<EOF
+          cat > Dockerrun.aws.json << EOF
           {
             "AWSEBDockerrunVersion": "1",
             "Image": {
-              "Name": "__IMAGE_URI__",
+              "Name": "$REGISTRY/$REPO:$TAG",
               "Update": "true"
             },
             "Ports": [
-              {
-                "ContainerPort": "80"
-              }
+              { "ContainerPort": "80" }
             ]
           }
           EOF
-          sed -i "s|__IMAGE_URI__|$IMAGE_URI|g" Dockerrun.aws.json
+          cat Dockerrun.aws.json
 
       - name: Show and validate Dockerrun
         run: |
