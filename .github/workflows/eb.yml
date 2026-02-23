@@ -60,7 +60,7 @@ jobs:
           {
             "AWSEBDockerrunVersion": 1,
             "Image": { "Name": "__IMAGE_URI__", "Update": "true" },
-            "Ports": [ { "ContainerPort": 80 } ]
+            "Ports": [ { "ContainerPort": "80" } ]
           }
           EOF
           sed -i "s|__IMAGE_URI__|$IMAGE_URI|g" Dockerrun.aws.json
