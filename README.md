@@ -1,16 +1,29 @@
-# React + Vite
+## Husky (validaciones antes de commitear)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Se configuró **Husky** para aplicar reglas de estilo y asegurar una estructura correcta de commits antes de subir cambios al repositorio.
 
-Currently, two official plugins are available:
+### Herramientas usadas
+- **ESLint**: valida reglas de código y evita warnings (`--max-warnings=0`).
+- **Prettier**: formatea archivos de forma consistente.
+- **lint-staged**: ejecuta las validaciones solo sobre archivos *staged* (los que van en el commit).
+- **commit-msg**: valida que el mensaje cumpla la convención definida (estructura del commit).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Hooks configurados
+- **pre-commit**
+  - Ejecuta `lint-staged` para verificar y corregir estilo automáticamente antes de crear el commit.
+- **commit-msg**
+  - Valida el formato del mensaje de commit para cumplir con la estructura requerida.
 
-## React Compiler
+### Configuración en `package.json`
+Se agregó la configuración de `lint-staged` para aplicar ESLint/Prettier únicamente en los archivos afectados:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```json
+"lint-staged": {
+  "src/**/*.{js,jsx,ts,tsx}": [
+    "eslint --max-warnings=0 --fix",
+    "prettier --write"
+  ],
+  "src/**/*.{json,md,css,scss,html,yml,yaml}": [
+    "prettier --write"
+  ]
+}
