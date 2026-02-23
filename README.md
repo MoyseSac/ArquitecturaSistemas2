@@ -27,3 +27,17 @@ Se agregó la configuración de `lint-staged` para aplicar ESLint/Prettier únic
     "prettier --write"
   ]
 }
+
+[Aplicación desplegada en Elastic Beanstalk](http://web-env.eba-5nkppuft.us-east-2.elasticbeanstalk.com/)
+### Configuracion Elastic Beanstalk
+<img width="921" height="250" alt="image" src="https://github.com/user-attachments/assets/b88361cd-a4cf-41e3-b043-c16cfac22da4" />
+<img width="921" height="158" alt="image" src="https://github.com/user-attachments/assets/75693b50-85a3-4d31-a976-dca9378345bb" />
+<img width="921" height="276" alt="image" src="https://github.com/user-attachments/assets/3914ce88-1dca-4f53-9f93-bda853e00448" />
+<img width="921" height="320" alt="image" src="https://github.com/user-attachments/assets/251ec1e8-f735-4790-b1db-e3fce46e9137" />
+<img width="921" height="610" alt="image" src="https://github.com/user-attachments/assets/bfbc78b4-4e8b-403c-b9e5-4e6a3ff59e94" />
+<img width="921" height="587" alt="image" src="https://github.com/user-attachments/assets/cbb9e444-1088-4139-99d0-cf593d634232" />
+
+
+
+
+
