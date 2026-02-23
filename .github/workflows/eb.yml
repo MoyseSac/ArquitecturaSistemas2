@@ -17,7 +17,7 @@ env:
   EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
   EB_S3_BUCKET: ${{ secrets.EB_S3_BUCKET }}
 
-  ECR_REPOSITORY: ${{ secrets.ECR_URI }}
+  ECR_URI: ${{ secrets.ECR_URI }}
 
 jobs:
   deploy:
@@ -32,20 +32,18 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_USR_ARN }}
-          aws-region: us-east-2
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build, tag and push Docker image to ECR
         env:
-          ECR_REGISTRY: ${{ steps.ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" .
-          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          echo "IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
+          docker build -t "$ECR_URI:$IMAGE_TAG" .
+          docker push "$ECR_URI:$IMAGE_TAG"
+          echo "IMAGE_URI=$ECR_URI:$IMAGE_TAG" >> $GITHUB_ENV
 
       - name: Create Dockerrun.aws.json (v1)
         run: |
@@ -57,9 +55,7 @@ jobs:
               "Update": "true"
             },
             "Ports": [
-              {
-                "ContainerPort": 80
-              }
+              { "ContainerPort": 80 }
             ]
           }
           EOF
