@@ -1,0 +1,383 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a2e;
+  font-family: "Press Start 2P", monospace;
+  color: #7ec850;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* ── PHONE SHELL ── */
+.phone-container {
+  width: 300px;
+  background: #2a2d3e;
+  border-radius: 30px 30px 50px 50px;
+  padding: 16px 16px 32px;
+  box-shadow:
+    0 0 0 4px #1a1c2a,
+    0 0 0 7px #3a3d52,
+    0 10px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── NOKIA LOGO ── */
+.nokia-logo {
+  font-size: 10px;
+  letter-spacing: 6px;
+  color: #c0c0c0;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+/* ── SCREEN WRAPPER (fixed size always) ── */
+.screen-wrapper {
+  width: 100%;
+  height: 200px;
+  background: #8bac0f;
+  border-radius: 8px;
+  border: 3px solid #4a4a2a;
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(139, 172, 15, 0.15);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Scanline overlay */
+.screen-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── LOCKED STATE ── */
+.screen-wrapper.locked {
+  background: #000;
+}
+
+.lock-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1;
+}
+
+.lock-icon {
+  font-size: 28px;
+}
+
+.lock-time {
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 2px;
+}
+
+.lock-hint {
+  font-size: 5px;
+  color: #333;
+  letter-spacing: 1px;
+}
+
+/* ── SCREEN INNER ── */
+.screen-inner {
+  position: absolute;
+  inset: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-shrink: 0;
+}
+
+.screen-time {
+  font-size: 9px;
+  color: #306230;
+}
+
+.signal-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.signal-bars span {
+  background: #306230;
+  width: 3px;
+  display: block;
+}
+
+.signal-bars span:nth-child(1) { height: 4px; }
+.signal-bars span:nth-child(2) { height: 7px; }
+.signal-bars span:nth-child(3) { height: 10px; }
+.signal-bars span:nth-child(4) { height: 13px; }
+
+/* ── HOME SCREEN ── */
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 4px;
+}
+
+.screen-title {
+  font-size: 6px;
+  color: #306230;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.screen-menu-label {
+  font-size: 7px;
+  color: #306230;
+  text-align: center;
+  border-top: 1px solid #306230;
+  padding-top: 4px;
+  width: 100%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ── PIXEL WHALE ── */
+.pixel-mascot {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+.pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(16, 5px);
+  grid-template-rows: repeat(10, 5px);
+  gap: 1px;
+}
+
+.pixel-grid .px {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+}
+
+.pixel-grid .px.on {
+  background: #306230;
+}
+
+/* ── CONTENT SCREEN (same fixed height, scrollable inside) ── */
+.content-screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content-scroll {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 2px;
+  scrollbar-width: none;
+}
+
+.content-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.content-screen h2 {
+  font-size: 6px;
+  color: #306230;
+  margin-bottom: 8px;
+  text-align: center;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.content-screen p {
+  font-size: 5px;
+  color: #306230;
+  line-height: 2.2;
+  margin-bottom: 6px;
+}
+
+.command-block {
+  background: #306230;
+  color: #8bac0f;
+  padding: 5px 6px;
+  border-radius: 3px;
+  font-size: 5px;
+  margin: 4px 0;
+  line-height: 2;
+  word-break: break-all;
+}
+
+/* ── NAV BUTTONS ── */
+.nav-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.nav-btn {
+  background: #3a3d52;
+  border: none;
+  border-radius: 6px;
+  color: #7ec850;
+  font-family: "Press Start 2P", monospace;
+  font-size: 5px;
+  padding: 7px 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a1c2a;
+  transition: all 0.08s ease;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.nav-btn:hover { background: #4a4d62; }
+
+.nav-btn:active {
+  box-shadow: 0 1px 0 #1a1c2a;
+  transform: translateY(3px);
+}
+
+.nav-btn.active-tab {
+  background: #5a5d72;
+  color: #b0ff70;
+}
+
+/* ── CALL ROW ── */
+.call-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.center-btn {
+  width: 46px;
+  height: 20px;
+  background: linear-gradient(180deg, #4a90d9, #2060a0);
+  border: none;
+  border-radius: 11px;
+  box-shadow: 0 3px 0 #0a3060;
+  cursor: pointer;
+  transition: all 0.08s ease;
+}
+
+.center-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #0a3060;
+}
+
+.call-btn {
+  width: 46px;
+  height: 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+  transition: all 0.08s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.call-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.call-btn.green {
+  background: linear-gradient(180deg, #5cb85c, #3a7a3a);
+  color: white;
+}
+
+.call-btn.red {
+  background: linear-gradient(180deg, #d9534f, #9a2a2a);
+  color: white;
+}
+
+/* ── NUMPAD ── */
+.numpad {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.key {
+  background: linear-gradient(180deg, #4a4d5e, #3a3d4e);
+  border: none;
+  border-radius: 50%;
+  width: 62px;
+  height: 44px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1a1c2a;
+  transition: all 0.08s ease;
+  font-family: "Press Start 2P", monospace;
+}
+
+.key:hover { background: linear-gradient(180deg, #5a5d6e, #4a4d5e); }
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1a1c2a;
+}
+
+.key .key-num {
+  font-size: 12px;
+  color: #e0e0e0;
+  line-height: 1;
+}
+
+.key .key-letters {
+  font-size: 5px;
+  color: #7ec850;
+  margin-top: 2px;
+  letter-spacing: 1px;
+}
+
+.key.special .key-num {
+  font-size: 11px;
+  color: #aaa;
+}
