@@ -1,16 +1,46 @@
-# React + Vite
+# Assignment 04
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Aplicación
 
-Currently, two official plugins are available:
+![App Screenshot](./images/app.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ¿Qué se hizo en esta tarea?
 
-## React Compiler
+### 1. Dockerización de la aplicación
+Se creó un `Dockerfile` con una estrategia de **multi-stage build**:
+- **Etapa 1 (builder):** Usa Node.js para compilar el proyecto con Vite
+- **Etapa 2 (production):** Usa nginx para servir los archivos estáticos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Las imágenes y herramientas están fijadas a versiones específicas para garantizar reproducibilidad:
+- `node:20.19.0-alpine3.21`
+- `pnpm:10.17.1`
+- `nginx:1.27.4-alpine`
 
-## Expanding the ESLint configuration
+### 2. Gestión de secretos con Doppler
+Las credenciales de Docker Hub se almacenaron en **Doppler** y se sincronizaron
+automáticamente como secrets en GitHub Actions.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 3. Pipeline CI/CD con GitHub Actions
+Se configuró un pipeline que se ejecuta automáticamente en cada `push` a la rama
+`assignment-04` y realiza las siguientes acciones:
+- Build de la imagen Docker
+- Push a Docker Hub con dos tags:
+  - `latest` → siempre apunta a la imagen más reciente
+  - `SHA del commit` → permite identificar exactamente qué código contiene cada imagen
+
+## Docker Hub
+
+**URL de la imagen:** `https://hub.docker.com/r/moisesac/assignment-04`
+
+Para correr la imagen localmente:
+
+```bash
+docker pull moisesac/assignment-04:latest
+docker run -p 8080:80 moisesac/assignment-04:latest
+```
+
+Luego debe abrir `http://localhost:8080` en su navegador.
+
+## Tags en Docker Hub
+
+![Docker Hub Tags](./images/dockerhub-tags.png)
