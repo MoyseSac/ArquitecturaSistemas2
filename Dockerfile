@@ -1,8 +1,8 @@
-FROM node:20-alpine AS builder
+FROM node:20.19.0-alpine3.21 AS builder
 
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.17.1 --activate
 
 COPY package.json pnpm-lock.yaml ./
 
@@ -13,7 +13,7 @@ COPY . .
 RUN pnpm run build
 
 # ─────────────────────────────────────────
-FROM nginx:alpine
+FROM nginx:1.27.4-alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
