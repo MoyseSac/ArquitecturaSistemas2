@@ -52,7 +52,7 @@ model Task {
 
 ### Screenshot de la base de datos en Neon
 
-![Base de datos](./assets/db-screenshot.png)
+![Base de datos](./assets/db-screenshots.png)
 
 ## API Endpoints
 
