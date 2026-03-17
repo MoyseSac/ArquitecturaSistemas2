@@ -31,7 +31,7 @@ export const updateTask = async (
     req: Request,
     res: Response
 ): Promise<void> => {
-    const { id } = req.params;
+    const id = String(req.params.id);
     const { title, description, completed } = req.body;
     const task = await prisma.task.update({
         where: { id },
@@ -44,7 +44,7 @@ export const deleteTask = async (
     req: Request,
     res: Response
 ): Promise<void> => {
-    const { id } = req.params;
+    const id = String(req.params.id);
     await prisma.task.update({
         where: { id },
         data: { deletedAt: new Date() },
