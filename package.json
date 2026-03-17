@@ -1,9 +1,6 @@
 {
+	"name": "mono-repo",
 	"private": true,
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
 	"devDependencies": {
 		"turbo": "^2.8.17",
 		"typescript": "^5.9.3",
