@@ -13,3 +13,4 @@ prisma/migrations/dev/
 
 # Logs
 *.log
+/src/generated/prisma
