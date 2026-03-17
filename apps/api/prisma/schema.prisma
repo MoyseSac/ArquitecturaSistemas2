@@ -1,13 +1,18 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
-generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
-}
-
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")  // Lee de tu .env
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model Task {
+  id          Int      @id @default(autoincrement()) // PK, se auto-incrementa
+  title       String                                 // texto obligatorio
+  description String?                                // texto opcional (el ? indica nullable)
+  completed   Boolean  @default(false)               // false por defecto
+  createdAt   DateTime @default(now())               // fecha automática al crear
+  updatedAt   DateTime @updatedAt                    // se actualiza automáticamente
 }
