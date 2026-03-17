@@ -9,10 +9,11 @@ generator client {
 
 
 model Task {
-  id          Int      @id @default(autoincrement()) // PK, se auto-incrementa
-  title       String                                 // texto obligatorio
-  description String?                                // texto opcional (el ? indica nullable)
-  completed   Boolean  @default(false)               // false por defecto
-  createdAt   DateTime @default(now())               // fecha automática al crear
-  updatedAt   DateTime @updatedAt                    // se actualiza automáticamente
+  id          String    @id @default(uuid())
+  title       String                                 
+  description String?                               
+  completed   Boolean  @default(false)               
+  createdAt   DateTime @default(now())               
+  updatedAt   DateTime @updatedAt                
+  deletedAt   DateTime?  
 }
