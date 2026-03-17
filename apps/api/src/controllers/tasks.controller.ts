@@ -6,6 +6,7 @@ export const getAllTasks = async (
     res: Response
 ): Promise<void> => {
     const tasks = await prisma.task.findMany({
+        where: { deletedAt: null },
         orderBy: { createdAt: "desc" },
     });
     res.json(tasks);
@@ -33,7 +34,7 @@ export const updateTask = async (
     const { id } = req.params;
     const { title, description, completed } = req.body;
     const task = await prisma.task.update({
-        where: { id: Number(id) },
+        where: { id },
         data: { title, description, completed },
     });
     res.json(task);
@@ -44,6 +45,9 @@ export const deleteTask = async (
     res: Response
 ): Promise<void> => {
     const { id } = req.params;
-    await prisma.task.delete({ where: { id: Number(id) } });
+    await prisma.task.update({
+        where: { id },
+        data: { deletedAt: new Date() },
+    });
     res.status(204).send();
 };

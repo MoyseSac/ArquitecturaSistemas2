@@ -1,7 +1,7 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
 export interface Task {
-    id: number;
+    id: string;
     title: string;
     description: string | null;
     completed: boolean;
@@ -27,7 +27,7 @@ export const createTask = async (data: {
 };
 
 export const updateTask = async (
-    id: number,
+    id: string,
     data: Partial<Task>
 ): Promise<Task> => {
     const res = await fetch(`${API_URL}/api/tasks/${id}`, {
