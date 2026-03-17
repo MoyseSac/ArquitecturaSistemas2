@@ -57,9 +57,9 @@ model Task {
 | `add-uuid-and-soft-delete` | Cambio de id a UUID y agregado de soft delete |
 
 Las migraciones se aplican automáticamente en cada deploy con:
-\```bash
+```bash
 prisma migrate deploy
-\```
+```
 
 ### Screenshot de la base de datos en Neon
 
