@@ -4,7 +4,7 @@ import { updateTask, deleteTask } from "../api";
 interface Props {
   task: Task;
   onUpdated: (task: Task) => void;
-  onDeleted: (id: number) => void;
+  onDeleted: (id: string) => void;  // ← cambia number por string
 }
 
 export default function TaskItem({ task, onUpdated, onDeleted }: Props) {

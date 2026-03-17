@@ -23,7 +23,7 @@ export default function Home() {
     setTasks((prev) => prev.map((t) => (t.id === updated.id ? updated : t)));
   };
 
-  const handleDeleted = (id: number) => {
+  const handleDeleted = (id: string) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
