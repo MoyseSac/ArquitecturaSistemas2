@@ -6,8 +6,7 @@ con Turborepo, Next.js, Express y PostgreSQL.
 ## URLs
 
 - **Frontend:** https://todo-app-nine-ashen-68.vercel.app/
-- **Backend:** https://todo-api-x90t.onrender.com
-- **API Docs (Swagger):** https://todo-api-x90t.onrender.com/api/docs
+- **Backend:** https://todo-api-x90t.onrender.com/api/docs
 
 ## Stack
 
