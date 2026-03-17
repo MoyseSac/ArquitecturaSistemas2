@@ -16,7 +16,8 @@ const router = Router();
  *       type: object
  *       properties:
  *         id:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *         title:
  *           type: string
  *         description:
@@ -24,6 +25,10 @@ const router = Router();
  *           nullable: true
  *         completed:
  *           type: boolean
+ *         deletedAt:
+ *           type: string
+ *           format: date-time
+ *           nullable: true
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -92,7 +97,8 @@ router.post("/", createTask);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     requestBody:
  *       content:
  *         application/json:
@@ -119,17 +125,18 @@ router.patch("/:id", updateTask);
  * @swagger
  * /api/tasks/{id}:
  *   delete:
- *     summary: Eliminar una tarea
+ *     summary: Eliminar una tarea (soft delete)
  *     tags: [Tasks]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
  *     responses:
  *       204:
- *         description: Tarea eliminada
+ *         description: Tarea eliminada (soft delete)
  */
 router.delete("/:id", deleteTask);
 
