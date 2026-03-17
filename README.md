@@ -49,6 +49,17 @@ model Task {
   updatedAt   DateTime @updatedAt
 }
 ```
+## Migraciones
+
+| Migración | Descripción |
+|---|---|
+| `init` | Creación inicial de la tabla Task |
+| `add-uuid-and-soft-delete` | Cambio de id a UUID y agregado de soft delete |
+
+Las migraciones se aplican automáticamente en cada deploy con:
+\```bash
+prisma migrate deploy
+\```
 
 ### Screenshot de la base de datos en Neon
 
@@ -61,7 +72,7 @@ model Task {
 | GET | /api/tasks | Obtener todas las tareas |
 | POST | /api/tasks | Crear una tarea |
 | PATCH | /api/tasks/:id | Actualizar una tarea |
-| DELETE | /api/tasks/:id | Eliminar una tarea |
+| DELETE | /api/tasks/:id | Eliminar una tarea (soft delete) |
 
 > Documentación completa disponible en `/api/docs`
 
