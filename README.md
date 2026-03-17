@@ -1,6 +1,6 @@
-# Todo App
+# To-do App
 
-Aplicación web de gestión de tareas (Todo App) construida como monorepo
+Aplicación web de gestión de tareas (To-do App) construida como monorepo
 con Turborepo, Next.js, Express y PostgreSQL.
 
 ## URLs
