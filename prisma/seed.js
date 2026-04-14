@@ -8,8 +8,16 @@ const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
 async function main() {
+  const existingUser = await prisma.user.findUnique({
+    where: { email: 'ana@example.com' },
+  });
+
+  if (existingUser) {
+    console.log('Data already seeded, skipping...');
+    return;
+  }
   const user1 = await prisma.user.create({
     data: {
       name: 'Ana García',
