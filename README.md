@@ -148,7 +148,5 @@ Esta API es pública y está pensada para fines de demostración.
 ---
 
 ## Notas
-
-- Asegúrate de que la variable `DATABASE_URL` esté correctamente configurada.
 - El endpoint público puede tardar unos segundos en responder si está inactivo.
 - La API está desplegada en Render y lista para consumirse desde cualquier cliente GraphQL.
