@@ -150,7 +150,7 @@ ports:
 
 ### 1. Iniciar Minikube
 ```bash
-minikube start --kubernetes-version=v1.28.0
+minikube start 
 ```
 
 ### 2. Instalar ArgoCD
