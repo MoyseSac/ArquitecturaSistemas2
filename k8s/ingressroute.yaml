@@ -1,14 +1,17 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: assignment-04
-  namespace: app
+  name: argocd-server
+  namespace: argocd
 spec:
   entryPoints:
-  - web
+    - websecure
   routes:
-  - match: Host(`app.local`)
-    kind: Rule
-    services:
-    - name: assignment-04
-      port: 80
+    - match: Host(`argo.moisessac.com`)
+      kind: Rule
+      services:
+        - name: argocd-server
+          port: 443
+          scheme: https
+          serversTransport: argocd-insecure-transport
+  tls: {}
